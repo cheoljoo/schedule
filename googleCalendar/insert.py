@@ -56,10 +56,8 @@ def display():
     
 def inputValue():
     #'dateTime': '2019-03-26T09:00:00+09:00',
-    now = datetime.datetime.utcnow() # 'Z' indicates UTC time
-    str = now.strftime("%Y-%m-%dT")
-    #print(str)
     inStr = input("Number of WorkContents ; Now is 1(Start),2(End) ; Count of 30 Mins ; Messages => ")
+    now = datetime.datetime.utcnow() # 'Z' indicates UTC time
     x = inStr.split(';')
     global numOfWork
     numOfWork = int(x[0]);
