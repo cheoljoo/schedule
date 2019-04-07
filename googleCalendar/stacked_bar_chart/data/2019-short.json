@@ -1,0 +1,246 @@
+[
+  {
+    "key": "2019",
+    "values": [
+      {
+        "key": "breakfirst",
+        "value": 0
+      },
+      {
+        "key": "calendar",
+        "value": 0
+      },
+      {
+        "key": "code",
+        "value": 0
+      },
+      {
+        "key": "email",
+        "value": 0
+      },
+      {
+        "key": "github",
+        "value": 0
+      },
+      {
+        "key": "learningnet",
+        "value": 0
+      },
+      {
+        "key": "management",
+        "value": 0
+      },
+      {
+        "key": "meeting",
+        "value": 0
+      },
+      {
+        "key": "opensource",
+        "value": 0
+      },
+      {
+        "key": "preparation",
+        "value": 0
+      },
+      {
+        "key": "ps",
+        "value": 0
+      },
+      {
+        "key": "scrum",
+        "value": 0
+      },
+      {
+        "key": "seminar",
+        "value": 0
+      },
+      {
+        "key": "somedaytalk",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "key": "2019-02",
+    "values": [
+      {
+        "key": "breakfirst",
+        "value": 0
+      },
+      {
+        "key": "calendar",
+        "value": 0
+      },
+      {
+        "key": "code",
+        "value": 0
+      },
+      {
+        "key": "email",
+        "value": 0
+      },
+      {
+        "key": "github",
+        "value": 0
+      },
+      {
+        "key": "learningnet",
+        "value": 0
+      },
+      {
+        "key": "management",
+        "value": 0
+      },
+      {
+        "key": "meeting",
+        "value": 0
+      },
+      {
+        "key": "opensource",
+        "value": 0
+      },
+      {
+        "key": "preparation",
+        "value": 0
+      },
+      {
+        "key": "ps",
+        "value": 60
+      },
+      {
+        "key": "scrum",
+        "value": 0
+      },
+      {
+        "key": "seminar",
+        "value": 0
+      },
+      {
+        "key": "somedaytalk",
+        "value": 0
+      }
+    ]
+  },
+  {
+    "key": "2019-03",
+    "values": [
+      {
+        "key": "breakfirst",
+        "value": 30
+      },
+      {
+        "key": "calendar",
+        "value": 97
+      },
+      {
+        "key": "code",
+        "value": 540
+      },
+      {
+        "key": "email",
+        "value": 750
+      },
+      {
+        "key": "github",
+        "value": 30
+      },
+      {
+        "key": "learningnet",
+        "value": 30
+      },
+      {
+        "key": "management",
+        "value": 480
+      },
+      {
+        "key": "meeting",
+        "value": 570
+      },
+      {
+        "key": "opensource",
+        "value": 0
+      },
+      {
+        "key": "preparation",
+        "value": 120
+      },
+      {
+        "key": "ps",
+        "value": 345
+      },
+      {
+        "key": "scrum",
+        "value": 0
+      },
+      {
+        "key": "seminar",
+        "value": 0
+      },
+      {
+        "key": "somedaytalk",
+        "value": 247
+      }
+    ]
+  },
+  {
+    "key": "2019-04",
+    "values": [
+      {
+        "key": "breakfirst",
+        "value": 0
+      },
+      {
+        "key": "calendar",
+        "value": 285
+      },
+      {
+        "key": "code",
+        "value": 555
+      },
+      {
+        "key": "email",
+        "value": 1860
+      },
+      {
+        "key": "github",
+        "value": 0
+      },
+      {
+        "key": "learningnet",
+        "value": 330
+      },
+      {
+        "key": "management",
+        "value": 600
+      },
+      {
+        "key": "meeting",
+        "value": 1260
+      },
+      {
+        "key": "opensource",
+        "value": 30
+      },
+      {
+        "key": "preparation",
+        "value": 0
+      },
+      {
+        "key": "ps",
+        "value": 135
+      },
+      {
+        "key": "scrum",
+        "value": 360
+      },
+      {
+        "key": "seminar",
+        "value": 210
+      },
+      {
+        "key": "somedaytalk",
+        "value": 765
+      }
+    ]
+  }
+]

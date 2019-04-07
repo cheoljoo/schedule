@@ -70,7 +70,7 @@ def main():
     print('Getting the upcoming 10 events')
     #'2019-03-26T09:00:00+09:00' , now
     events_result = service.events().list(calendarId='primary', timeMin='2019-01-01T09:00:00+09:00',
-                                        maxResults=20, singleEvents=True,
+                                        maxResults=50, singleEvents=True,
                                         orderBy='startTime').execute()
     events = events_result.get('items', [])
 

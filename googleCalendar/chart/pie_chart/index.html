@@ -1,0 +1,75 @@
+---
+layout: default
+title: D3.js Pie Chart using YAML and Jekyll
+---
+
+<h3>D3.js Pie Chart Using YAML and Jekyll</h3>
+<p>This is a <a href="https://d3js.org/">D3.js pie chart that is driven from dynamically generated JSON, derived from YAML stored in the _data folder within this Github Pages repository running Jekyll. The goal is to provide a simple, reverse-engineerable example of how YAML can be used to drive visualizations, allowing anyone to fork and re-purpose for thei rown needs.</p>
+<div id="chart"></div>
+<p>The YAML can be found in <a href="https://github.com/kinlane/d3-js-using-yaml-jekyll/tree/gh-pages/_data" target="_blank">_data/pie-chart.yaml</a>, but is transformed into the JSON needed for this chart, using <a href="https://github.com/kinlane/d3-js-using-yaml-jekyll/blob/gh-pages/data/pie-chart.json" target="_blank">/data/pie-chart.json</a>. You can fork the repo, and make work with your own data, and keep the YAML as the central, machine readable source. My objective is to decouple the data source from the visualiation, and leverage the readability of YAML + Jekyll + Github Pages for making data accessible.</p>
+
+<style>
+
+/* Pie Chart */
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}
+
+</style>
+
+<script>
+
+var width = 760,
+    height = 400,
+    radius = Math.min(width, height) / 2;
+
+var color = d3.scale.ordinal()
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+var arc = d3.svg.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(0);
+
+var labelArc = d3.svg.arc()
+    .outerRadius(radius - 40)
+    .innerRadius(radius - 40);
+
+var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.population; });
+
+var svg = d3.select("#chart").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+d3.json("/data/pie-chart.json", function(error, data) {
+  if (error) throw error;
+
+  var g = svg.selectAll(".arc")
+      .data(pie(data))
+    .enter().append("g")
+      .attr("class", "arc");
+
+  g.append("path")
+      .attr("d", arc)
+      .style("fill", function(d) { return color(d.data.age); });
+
+  g.append("text")
+      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+      .attr("dy", ".35em")
+      .text(function(d) { return d.data.age; });
+});
+
+function type(d) {
+  d.population = +d.population;
+  return d;
+}
+</script>
+<p></p>

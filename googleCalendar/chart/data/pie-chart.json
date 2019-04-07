@@ -1,0 +1,9 @@
+---
+layout: none
+---
+[{% for chart in site.data.bar-chart %}
+  {
+    "age": "{{ chart.name }}",
+    "population": "{{ chart.value }}"
+  }{% if forloop.last == false %},{% endif %}
+{% endfor %}]
