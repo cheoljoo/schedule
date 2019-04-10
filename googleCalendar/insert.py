@@ -41,6 +41,7 @@ eventIns = {
 }
 
 workContent = []
+sortedWorkContent = []
 numOfWork = 0
 
 def display():
@@ -49,7 +50,7 @@ def display():
 
     cnt = 0
     print("\n\n\n==WorkContents==")
-    for work in workContent:
+    for work in sortedWorkContent:
         print(cnt,work)
         cnt += 1
 
@@ -100,9 +101,9 @@ def addCalendar():
 
     print(eventIns)
     if not msg :
-        eventIns['summary'] = workContent[numOfWork] 
+        eventIns['summary'] = sortedWorkContent[numOfWork] 
     else:
-        eventIns['summary'] = workContent[numOfWork] + " - " + msg
+        eventIns['summary'] = sortedWorkContent[numOfWork] + " - " + msg
     eventIns['start']['dateTime'] = str1
     eventIns['end']['dateTime'] = str2
     print(eventIns)
@@ -162,15 +163,16 @@ def main():
     if not events:
         print('No upcoming events found.')
 
-    workCount = 0
     for event in events:
         start = event['start'].get('dateTime', event['start'].get('date'))
         #print(event['start'],start, event['summary'] , event['end'] , event['id'])
         x = event['summary'].split('-')
         node = x[0].strip().replace("  "," ")
         workContent.append(node)
-        print(workCount , "[",workContent[workCount],"]")
-        workCount = workCount + 1
+
+    for workCount, workEvent in enumerate(sorted(workContent)):
+        print(workCount , "[",workEvent,"]")
+        sortedWorkContent.append(workEvent)
 
 	#/ This is delete source
     # current eventId has been deleted.
