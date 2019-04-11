@@ -1,3 +1,12 @@
+# How to run
+## first stage
+- make init
+## when you insert schedule in google calendar
+- make 
+## when you update statistics in heal2u.github.io
+- make update
+    - show changed statistics in heal2u.github.io about my work style
+
 # Description
 - copy heal2u/* .    to use heal2u account
 

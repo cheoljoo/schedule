@@ -120,7 +120,7 @@ def main(argv):
     events_result = service.events().list(calendarId='primary', 
                                         timeMin=startTime,
                                         timeMax=endTime,
-                                        maxResults=50, singleEvents=True,
+                                        maxResults=400, singleEvents=True,
                                         orderBy='startTime').execute()
     events = events_result.get('items', [])
 
@@ -181,6 +181,12 @@ def main(argv):
     print(chartLevel2)
 
     f = open("%d-%02d-short.yaml"%(yearIntOrg,monthIntOrg),"w")
+    f.write("---\n");
+    for key,val in sorted( chartLevel1.items() ) :
+        f.write("- name: '%s'\n"%(key))
+        f.write("  value: '%s'\n"%(val))
+    f.close()
+    f = open("month.yaml","w")
     f.write("---\n");
     for key,val in sorted( chartLevel1.items() ) :
         f.write("- name: '%s'\n"%(key))

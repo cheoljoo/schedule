@@ -123,7 +123,7 @@ def main(argv):
     events_result = service.events().list(calendarId='primary', 
                                         timeMin=startTime,
                                         timeMax=endTime,
-                                        maxResults=3000, singleEvents=True,
+                                        maxResults=5000, singleEvents=True,
                                         orderBy='startTime').execute()
     events = events_result.get('items', [])
 
@@ -189,6 +189,46 @@ def main(argv):
     print(chartLevel2)
 
     f = open("%d-short.json"%(yearIntOrg),"w")
+    f.write("[\n");
+
+    f.write("  {\n");
+    f.write("    \"key\": \"%d\",\n"%(yearIntOrg))
+    f.write("    \"values\": [\n")
+    for j,keyj in enumerate( sorted(chartallsubitem1) ) :
+        f.write("      {\n");
+        f.write("        \"key\": \"%s\",\n"%(keyj));
+        f.write("        \"value\": 0\n");
+        if j == len(chartallsubitem1) -1 :
+            f.write("      }\n");
+        else :
+            f.write("      },\n");
+    f.write("    ]\n")
+    f.write("  },\n");
+
+    for i,keyi in enumerate( sorted(chartLevel1) ) :
+        f.write("  {\n");
+        print("i",i,keyi)
+        f.write("    \"key\": \"%s\",\n"%(keyi))
+        f.write("    \"values\": [\n")
+        for j,keyj in enumerate( sorted(chartallsubitem1) ) :
+            f.write("      {\n");
+            f.write("        \"key\": \"%s\",\n"%(keyj));
+            f.write("        \"value\": %s\n"%(chartLevel1[keyi].get(keyj,0)));
+            if j == len(chartallsubitem1) -1 :
+                f.write("      }\n");
+                print("  j last")
+            else :
+                f.write("      },\n");
+        f.write("    ]\n")
+        if i == len(chartLevel1) -1 :
+            f.write("  }\n");
+            print("i last")
+        else :
+            f.write("  },\n");
+    f.write("]\n");
+    f.close()
+
+    f = open("year.json","w")
     f.write("[\n");
 
     f.write("  {\n");
