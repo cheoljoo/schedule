@@ -57,32 +57,32 @@ def display():
     
 def inputValue():
     #'dateTime': '2019-03-26T09:00:00+09:00',
-    inStr = input("Number of WorkContents ; Now is 1(Start),2(End) ; Count of 30 Mins ; Messages => ")
+    inStr = input("Number of WorkContents ; Now is 1(Start),2(End) ; Counts of 15 Minute ; Messages => ")
     now = datetime.datetime.utcnow() # 'Z' indicates UTC time
     x = inStr.split(';')
     global numOfWork
     numOfWork = int(x[0]);
     startFlag = int(x[1]);
-    count30Min = int(x[2]);
+    count15Min = int(x[2]);
     global msg
     msg = x[3];
     msg = msg.strip();
-    print(numOfWork , startFlag, count30Min, msg , now , now.hour , now.minute)
+    print(numOfWork , startFlag, count15Min, msg , now , now.hour , now.minute)
     
     global nowStart
     global nowEnd
     nowStart = now + timedelta(hours = 9)  # + timezone
     nowEnd = now + timedelta(hours = 9)    # + timezone
     if startFlag == 1 :     # start
-        nowStart -= timedelta(minutes = (now.minute % 30) )
+        nowStart -= timedelta(minutes = (now.minute % 15) )
         nowStart -= timedelta(seconds = now.second)
-        nowEnd = nowStart + timedelta(minutes = 30 * count30Min)
+        nowEnd = nowStart + timedelta(minutes = 15 * count15Min)
         print("start",nowStart)
         print("end",nowEnd)
     else:                   # end
         nowEnd -= timedelta(seconds = now.second)
-        nowEnd += timedelta(minutes = (30 - now.minute % 30) )
-        nowStart = nowEnd - timedelta(minutes = 30 * count30Min)
+        nowEnd += timedelta(minutes = (15 - now.minute % 15) )
+        nowStart = nowEnd - timedelta(minutes = 15 * count15Min)
         print("end",nowEnd)
         print("start",nowStart)
 
