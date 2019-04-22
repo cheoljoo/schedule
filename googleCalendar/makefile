@@ -10,6 +10,7 @@ update:
 	cd heal2u.github.io; git pull
 	python3 statistics.py  
 	python3 year_statistics.py
+	cd heal2u.github.io; git pull;
 	cp -f month.yaml heal2u.github.io/_data
 	cp -f year.json heal2u.github.io/data
 	cd heal2u.github.io; git diff; git commit -a -m "update data" ; git push
