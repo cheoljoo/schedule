@@ -51,10 +51,12 @@ chartLevel1 = defaultdict(dict)
 chartLevel2 = defaultdict(dict)
 chartallsubitem1 = defaultdict(dict)
 chartallsubitem2 = defaultdict(dict)
+chartallsubitem1Sum = 0
 
 def main(argv):
     year = ''
     month = ''
+    chartallsubitem1Sum = 0
     try:
         opts, args = getopt.getopt(argv,"hy:m:",["year=","month="])
     except getopt.GetoptError:
@@ -111,7 +113,7 @@ def main(argv):
     monthInt = int(month)
     yearIntOrg = yearInt
     monthIntOrg = monthInt
-    startTime = "%d-01-02T00:00:00+09:00"%(yearInt)
+    startTime = "%d-01-03T00:00:00+09:00"%(yearInt)
     if monthInt == 12 :
         yearInt += 1
         endTime =   "%d-01-01T00:00:00+09:00"%(yearInt)
@@ -171,7 +173,8 @@ def main(argv):
                 chartLevel1[unit][t1[0].strip().lower()] = int(calMinute / countTitle)
             else :
                 chartLevel1[unit][t1[0].strip().lower()] += int(calMinute / countTitle)
-            chartallsubitem1[t1[0].strip().lower()] = 0
+            chartallsubitem1[t1[0].strip().lower()] =  chartallsubitem1.get(t1[0].strip().lower() , 0) + int(calMinute / countTitle)
+            chartallsubitem1Sum +=  int(calMinute / countTitle)
             #print("-",t1,"-",t1[0].strip().lower(),"=",t2[0].strip().lower(),"=")
 
         if chart[unit].get( event['summary'].strip().lower() , -1) == -1:
@@ -318,6 +321,13 @@ def main(argv):
 	#/ This is insert source
     #event = service.events().insert(calendarId='primary', body=eventIns).execute()
     #print 'Event created: %s'%(event.get('htmlLink'))
+
+
+    print("\n"*3)
+    ## % of items 
+    print("===========  % of items in chartLevel1 : charallsubitem1Sum : ",chartallsubitem1Sum)
+    for i,keyi in enumerate( sorted(chartallsubitem1) ) :
+        print(keyi,":", int(chartallsubitem1[keyi]*100/chartallsubitem1Sum))
 
 
 if __name__ == "__main__":

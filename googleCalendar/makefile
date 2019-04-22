@@ -13,3 +13,6 @@ update:
 	cp -f month.yaml heal2u.github.io/_data
 	cp -f year.json heal2u.github.io/data
 	cd heal2u.github.io; git diff; git commit -a -m "update data" ; git push
+
+percent:
+	python3 year_statistics.py

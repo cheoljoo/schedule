@@ -7,6 +7,9 @@
 - make update
     - show changed statistics in heal2u.github.io about my work style
 
+## when want to get the percentages of each job (Level1) in this year
+- make percent
+
 # Description
 - copy heal2u/* .    to use heal2u account
 
@@ -89,3 +92,21 @@
         - [Stacked Bar Chart Original Example](http://bl.ocks.org/jamesleesaunders/ac5b6134ad7144e8327d)
         - http://bl.ocks.org/mstanaland/6100713
 
+## make percent : when want to get the percentages of each job (Level1) in this year
+```
+===========  % of items in chartLevel1 : charallsubitem1Sum :  7879
+breakfirst : 0
+calendar : 2
+code : 24
+email : 19
+github : 1
+learningnet : 5
+management : 11
+meeting : 19
+opensource : 0
+preparation : 1
+ps : 6
+scrum : 0
+seminar : 0
+somedaytalk : 6
+```
