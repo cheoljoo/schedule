@@ -52,10 +52,10 @@ def display():
     #now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
 
     print("\n\n\n==WorkContents Max : 50 ==")
-    cnt = 0
-    for work in sortedWorkContent:
-        print(cnt,work)
-        cnt += 1
+    #cnt = 0
+    #for work in sortedWorkContent:
+        #print(cnt,work)
+        #cnt += 1
 
     i = 0
     print("[idx] {work:^40s}   |{project:^30s}".format(work="Work Contents", project="Project Contents"))
@@ -215,7 +215,7 @@ def main():
         projectContent.append(node)
 
     for projectCount, projectEvent in enumerate(sorted(projectContent)):
-        print(projectCount , "[",projectEvent,"]")
+        #print(projectCount , "[",projectEvent,"]")
         sortedProjectContent.append(projectEvent)
 
 	#/ This is delete source
