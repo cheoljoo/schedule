@@ -43,31 +43,46 @@ eventIns = {
 workContent = []
 sortedWorkContent = []
 numOfWork = 0
+projectContent = []
+sortedProjectContent = []
+numOfProject = 0
 
 def display():
     # datetime object containing current date and time
     #now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
 
+    print("\n\n\n==WorkContents Max : 50 ==")
     cnt = 0
-    print("\n\n\n==WorkContents==")
     for work in sortedWorkContent:
         print(cnt,work)
         cnt += 1
 
+    i = 0
+    print("[idx] {work:^40s}   |{project:^30s}".format(work="Work Contents", project="Project Contents"))
+    print(" "*5, "-"*40 , " "*2, "-"*30);
+    while ( (i < len(sortedWorkContent)) or ( i < len(sortedProjectContent)) ):
+        print("[{index:3d}] {work:>40s}   |{project:>30s}".format(index=i, work=sortedWorkContent[i] if i < len(sortedWorkContent) else "   ", project=sortedProjectContent[i] if i < len(sortedProjectContent) else "   "))
+        print(" "*5, "-"*40 , " "*2, "-"*30);
+        i += 1
+#
+    #print("Art: {a:5d},  Price: {p:8.2f}".format(a=453, p=59.058)
+#
     
 def inputValue():
     #'dateTime': '2019-03-26T09:00:00+09:00',
-    inStr = input("Number of WorkContents ; Now is 1(Start),2(End) ; Counts of 15 Minute ; Messages => ")
+    inStr = input("Number of WorkContents ; Number of ProjectContents (-1:none) ; Now is 1(Start),2(End) ; Counts of 15 Minute ; Messages => ")
     now = datetime.datetime.utcnow() # 'Z' indicates UTC time
     x = inStr.split(';')
     global numOfWork
+    global numOfProject
     numOfWork = int(x[0]);
-    startFlag = int(x[1]);
-    count15Min = int(x[2]);
+    numOfProject = int(x[1]);
+    startFlag = int(x[2]);
+    count15Min = int(x[3]);
     global msg
-    msg = x[3];
+    msg = x[4];
     msg = msg.strip();
-    print(numOfWork , startFlag, count15Min, msg , now , now.hour , now.minute)
+    print(numOfWork , numOfProject,startFlag, count15Min, msg , now , now.hour , now.minute)
     
     global nowStart
     global nowEnd
@@ -99,11 +114,15 @@ def addCalendar():
     #2019-03-26T09:00:00+09:00
     print(str2)
 
+    smy = sortedWorkContent[numOfWork];
+    if (numOfProject >= 0) and (numOfProject < len(sortedProjectContent))  :
+        smy += " ({})".format(sortedProjectContent[numOfProject])
+        print("smy=", smy , sortedProjectContent[numOfProject]);
     print(eventIns)
     if not msg :
-        eventIns['summary'] = sortedWorkContent[numOfWork] 
+        eventIns['summary'] = smy
     else:
-        eventIns['summary'] = sortedWorkContent[numOfWork] + " - " + msg
+        eventIns['summary'] = smy + " - " + msg
     eventIns['start']['dateTime'] = str1
     eventIns['end']['dateTime'] = str2
     print(eventIns)
@@ -153,6 +172,8 @@ def main():
     now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
     print('Getting the upcoming 10 events',now)
     #'2019-03-26T09:00:00+09:00' , now
+
+    # 2019  1/1 is work list
     events_result = service.events().list(calendarId='primary', 
 										timeMin='2019-01-01T00:00:00+09:00',
 										timeMax='2019-01-01T23:59:59+09:00',
@@ -171,8 +192,39 @@ def main():
         workContent.append(node)
 
     for workCount, workEvent in enumerate(sorted(workContent)):
-        print(workCount , "[",workEvent,"]")
+        #print(workCount , "[",workEvent,"]")
         sortedWorkContent.append(workEvent)
+
+
+    # 2019  1/2 is project list
+    events_result = service.events().list(calendarId='primary', 
+										timeMin='2019-01-02T00:00:00+09:00',
+										timeMax='2019-01-02T23:59:59+09:00',
+                                        maxResults=50, singleEvents=True,
+                                        orderBy='startTime').execute()
+    events = events_result.get('items', [])
+
+    if not events:
+        print('No upcoming events found.')
+
+    for event in events:
+        start = event['start'].get('dateTime', event['start'].get('date'))
+        #print(event['start'],start, event['summary'] , event['end'] , event['id'])
+        x = event['summary'].split('-')
+        node = x[0].strip().replace("  "," ")
+        projectContent.append(node)
+
+    for projectCount, projectEvent in enumerate(sorted(projectContent)):
+        print(projectCount , "[",projectEvent,"]")
+        sortedProjectContent.append(projectEvent)
+
+	#/ This is delete source
+    # current eventId has been deleted.
+    #event = service.events().delete(calendarId='primary', eventId="1pcsgsu56j6vhmft6f70ghvuc8", sendUpdates=None).execute()
+
+	#/ This is insert source
+    #event = service.events().insert(calendarId='primary', body=eventIns).execute()
+    #print 'Event created: %s'%(event.get('htmlLink'))
 
 	#/ This is delete source
     # current eventId has been deleted.
