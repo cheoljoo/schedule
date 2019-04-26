@@ -82,9 +82,9 @@ def inputValue():
         str1 = nowStart.strftime("%Y-%m-%dT")
         str1 += "%02d:%02d:00+09:00"%(nowStart.hour,nowStart.minute);
         print("already set the starting time : ", str1)
-    print("1 - Set starting time (type -1; return)");
-    print("2 - Number of WorkContents ; Number of ProjectContents (-1:none) ; Now is 1(Start),2(End) ; Counts of 15 Minute ; Messages ")
-    print("3 - Number of WorkContents ; Number of ProjectContents (-1:none) ; Now is -1(use start from step1) ; Counts of 15 Minute ; Messages ")
+    print(") Set starting time (type -1; return)");
+    print(") Number of WorkContents ; Number of ProjectContents (-1:none) ; Now is 1(Start),2(End) ; Counts of 15 Minute ; Messages ")
+    print(") Number of WorkContents ; Number of ProjectContents (-1:none) ; Now is -1(use start from step1) ; AnyNumber  ; Messages ")
     inStr = input(" => ")
     now = datetime.datetime.utcnow() # 'Z' indicates UTC time
     x = inStr.split(';')
