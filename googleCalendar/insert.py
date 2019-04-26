@@ -62,7 +62,8 @@ def display():
     print(" "*5, "-"*40 , " "*2, "-"*30);
     while ( (i < len(sortedWorkContent)) or ( i < len(sortedProjectContent)) ):
         print("[{index:3d}] {work:>40s}   |{project:>30s}".format(index=i, work=sortedWorkContent[i] if i < len(sortedWorkContent) else "   ", project=sortedProjectContent[i] if i < len(sortedProjectContent) else "   "))
-        print(" "*5, "-"*40 , " "*2, "-"*30);
+        if (i+1) % 5 == 0 :
+            print(" "*5, "-"*40 , " "*2, "-"*30);
         i += 1
 #
     #print("Art: {a:5d},  Price: {p:8.2f}".format(a=453, p=59.058)
