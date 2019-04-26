@@ -46,6 +46,7 @@ numOfWork = 0
 projectContent = []
 sortedProjectContent = []
 numOfProject = 0
+isSetStart = 0
 
 def display():
     # datetime object containing current date and time
@@ -71,22 +72,43 @@ def display():
     
 def inputValue():
     #'dateTime': '2019-03-26T09:00:00+09:00',
-    inStr = input("Number of WorkContents ; Number of ProjectContents (-1:none) ; Now is 1(Start),2(End) ; Counts of 15 Minute ; Messages => ")
-    now = datetime.datetime.utcnow() # 'Z' indicates UTC time
-    x = inStr.split(';')
+    global isSetStart
     global numOfWork
     global numOfProject
+    global nowStart
+    global nowEnd
+    global msg
+    if isSetStart == 1 :
+        str1 = nowStart.strftime("%Y-%m-%dT")
+        str1 += "%02d:%02d:00+09:00"%(nowStart.hour,nowStart.minute);
+        print("already set the starting time : ", str1)
+    print("1 - Set starting time (type -1; return)");
+    print("2 - Number of WorkContents ; Number of ProjectContents (-1:none) ; Now is 1(Start),2(End) ; Counts of 15 Minute ; Messages ")
+    print("3 - Number of WorkContents ; Number of ProjectContents (-1:none) ; Now is -1(use start from step1) ; Counts of 15 Minute ; Messages ")
+    inStr = input(" => ")
+    now = datetime.datetime.utcnow() # 'Z' indicates UTC time
+    x = inStr.split(';')
     numOfWork = int(x[0]);
+    if numOfWork == -1 :
+        isSetStart = 1
+        nowStart = now + timedelta(hours = 9)  # + timezone
+        nowStart -= timedelta(minutes = (now.minute % 15) )
+        nowStart -= timedelta(seconds = now.second)
+        return "skipAddCalendar"
+
     numOfProject = int(x[1]);
     startFlag = int(x[2]);
     count15Min = int(x[3]);
-    global msg
     msg = x[4];
     msg = msg.strip();
     print(numOfWork , numOfProject,startFlag, count15Min, msg , now , now.hour , now.minute)
+
+    if (isSetStart == 1) and (startFlag == -1) :
+        nowEnd = now + timedelta(hours = 9)  # + timezone
+        nowEnd -= timedelta(seconds = now.second)
+        nowEnd += timedelta(minutes = (15 - now.minute % 15) )
+        return "addCalendar"
     
-    global nowStart
-    global nowEnd
     nowStart = now + timedelta(hours = 9)  # + timezone
     nowEnd = now + timedelta(hours = 9)    # + timezone
     if startFlag == 1 :     # start
@@ -95,12 +117,14 @@ def inputValue():
         nowEnd = nowStart + timedelta(minutes = 15 * count15Min)
         print("start",nowStart)
         print("end",nowEnd)
-    else:                   # end
+    else :                   # end
         nowEnd -= timedelta(seconds = now.second)
         nowEnd += timedelta(minutes = (15 - now.minute % 15) )
         nowStart = nowEnd - timedelta(minutes = 15 * count15Min)
         print("end",nowEnd)
         print("start",nowStart)
+
+    return "addCalendar"
 
 def addCalendar():
     print("add Calendar start",nowStart)
@@ -134,13 +158,15 @@ def addCalendar():
 	# This is insert source
     event = service.events().insert(calendarId='primary', body=eventIns).execute()
     print('Event created: %s'%(event.get('htmlLink')))
+    global isSetStart
+    isSetStart = 0
 
 
 def loop():
     while True:
         display()
-        inputValue()
-        addCalendar()
+        if inputValue() == "addCalendar" :
+            addCalendar()
         input("Press any key to add calendar ........")
 
 def main():
